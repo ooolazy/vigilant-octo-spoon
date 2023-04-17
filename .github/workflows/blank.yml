@@ -1,9 +1,6 @@
-jobs:
-  test:
-    strategy:
-      matrix:
-        runs-on: [buildjet-2vcpu-ubuntu-2204, buildjet-4vcpu-ubuntu-2204, buildjet-8vcpu-ubuntu-2204, buildjet-16vcpu-ubuntu-2204]
-    name: Test - ${{matrix.runs-on}}
-    runs-on: ${{matrix.runs-on}}
-    steps:
-      - uses: actions/checkout@v2
+# paste your YAML workflow file here and remove sensitive data
+      - name: Set up QEMU
+        if: steps.needs-build.outputs.result == 'true'
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
